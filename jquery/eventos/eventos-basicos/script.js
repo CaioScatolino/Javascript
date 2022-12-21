@@ -13,10 +13,14 @@ $('button').click(function(){
     $(this).toggleClass('bg')
 })
 
-$('button').mouseover(function(){
-    $('body').addClass('bg')
+$('button').hover(function(){
+    $('body').toggleClass('bg')
 })
 
-$('button').mouseout(function(){
-    $('body').removeClass('bg')
-})
+// $('button').mouseover(function(){
+//     $('body').addClass('bg')
+// })
+
+// $('button').mouseout(function(){
+//     $('body').removeClass('bg')
+// })
