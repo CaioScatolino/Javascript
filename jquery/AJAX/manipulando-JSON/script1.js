@@ -4,17 +4,14 @@ $(function() {
         e.preventDefault()
 
         var txt = $(this).serialize()
-        console.log(txt)
-
-
 
         $.ajax({
-            type: 'POST',
-            url: 'ajax.php',
-            data: txt,
-            dataType: 'json',
+            type:'POST',
+            url:'ajax1.php',
+            data:txt,
+            dataType:'json',
             success:function(json) {
-                alert("Meu nome é: ")
+               alert(json.status)
             }
         })
 
