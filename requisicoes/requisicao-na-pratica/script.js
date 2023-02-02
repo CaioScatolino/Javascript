@@ -10,6 +10,15 @@ function clicou() {
 
             alert(`O título do primeiro post é: ${json[0].title}`)
         })
+        .catch((error) => {
+
+            alert('Deu problema irmão')
+            console.log(error)
+
+        })
+        .finally(() => {
+            alert("Ufa, acabou tudo!")
+        })
 
 }
 
