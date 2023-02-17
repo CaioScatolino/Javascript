@@ -18,7 +18,7 @@
 
 .lifeBar .bar {
     height: inherit;
-    background-color: red;
+    background-color: green;
     border-radius: 5px;
 }
 

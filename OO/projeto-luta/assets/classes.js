@@ -68,12 +68,13 @@ class BigMonster extends Character {
 
 class Stage {
 
-    constructor(fighter1, fighter2, fighter1El, fighter2El) {
+    constructor(fighter1, fighter2, fighter1El, fighter2El, logObject) {
         
         this.fighter1 = fighter1
         this.fighter2 = fighter2
         this.fighter1El = fighter1El
         this.fighter2El = fighter2El
+        this.log = logObject
     }
 
     start () {
@@ -99,13 +100,25 @@ class Stage {
         this.fighter2El.querySelector('.name').innerHTML = `${this.fighter2.name} - ${this.fighter2.life.toFixed(1)}/${this.fighter2.maxLife.toFixed(1)} HP`
         let f2Pct = (this.fighter2.life / this.fighter2.maxLife) * 100
         this.fighter2El.querySelector('.bar').style.width = `${f2Pct}%`
+
+        if(f1Pct <= 30) {
+            this.fighter1El.querySelector('.bar').style.backgroundColor = 'red'
+        }else if (f1Pct < 60) {
+            this.fighter1El.querySelector('.bar').style.backgroundColor = 'yellow'
+        }
+        if(f2Pct <= 30) {
+            this.fighter2El.querySelector('.bar').style.backgroundColor = 'red'
+        }else if (f2Pct < 60) {
+            this.fighter2El.querySelector('.bar').style.backgroundColor = 'yellow'
+        }
+
     }
 
     doAttack(attacking, attacked) {
 
         if(attacking.life <= 0 || attacked.life <= 0) {
 
-            console.log("Atacando cachorro morto")
+            this.log.addMessage("Atacando cachorro morto")
             return;
         }
 
@@ -117,11 +130,34 @@ class Stage {
 
         if(actualAttack > actualDefense) {
             attacked.life -= (actualAttack-(attacked.defense*0.2))
-            console.log(`${attacking.name} causou ${actualAttack} de dano em ${attacked.name}`)
+            this.log.addMessage(`${attacking.name} causou ${actualAttack} de dano em ${attacked.name}`)
         }else {
-            console.log(`${attacked.name} conseguiu defender o dano`)
+            this.log.addMessage(`${attacked.name} conseguiu defender o dano`)
         }
 
         this.update()
+    }
+}
+
+
+class Log {
+    list = []
+    
+    constructor(listEl) {
+        this.listEl = listEl        
+    }
+
+    addMessage(msg) {
+        this.list.push(msg)
+        this.render()
+    }
+
+    render() {
+        this.listEl.innerHTML = ''
+
+        for(let i in this.list) {
+            this.listEl.innerHTML += `<li>${this.list[i]}</li>`
+        }
+
     }
 }
